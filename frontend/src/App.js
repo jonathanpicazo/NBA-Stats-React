@@ -8,6 +8,12 @@ import Players from './components/pages/Players';
 import ContactUs from './components/pages/ContactUs';
 import Marketing from './components/pages/Marketing';
 import Consulting from './components/pages/Consulting';
+import Hype from './components/pages/Hype';
+import HomeTeam from './components/pages/HomeTeam';
+import FieldGoal from './components/pages/FieldGoal';
+import BestGame from './components/pages/BestGame';
+import ThreePoint from './components/pages/ThreePoint';
+import Block from './components/pages/Block';
 
 function App() {
   return (
@@ -20,6 +26,12 @@ function App() {
         <Route path='/contact-us' component={ContactUs} />
         <Route path='/marketing' component={Marketing} />
         <Route path='/consulting' component={Consulting} />
+        <Route path='/hype' component={Hype} />
+        <Route path='/hometeam' component={HomeTeam} />
+        <Route path='/fieldgoal' component={FieldGoal} />
+        <Route path='/bestgame' component={BestGame} />
+        <Route path='/threepoint' component={ThreePoint} />
+        <Route path='/block' component={Block} />
       </Switch>
     </Router>
   );
