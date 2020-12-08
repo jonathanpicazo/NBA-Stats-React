@@ -57,7 +57,7 @@ export default class Teams extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className ='teams'>
         <h2>Teams Rankings, Top 10</h2>
         <div class = "container">
         <div>

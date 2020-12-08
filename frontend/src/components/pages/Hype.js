@@ -41,7 +41,7 @@ export default class Hype extends React.Component {
 
   render() {
     return(
-    <div>
+    <div className = 'hype'>
       <div>
         <h2>Teams Rankings, Top 10</h2>
         <b>Hype Factor</b>

@@ -98,7 +98,7 @@ printBestBlockers = () => {
 
   render() {
     return(
-      <div>
+      <div className = 'players'>
         <h2>Player Rankings, Top 10</h2>
         <div class = "container">
         <div>

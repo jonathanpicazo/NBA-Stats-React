@@ -37,7 +37,7 @@ export default class ThreePoint extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className = 'threept'>
         <b>3PT% in a Game (per 10+ attempts)</b>
         <div class = "container">
           <ol>

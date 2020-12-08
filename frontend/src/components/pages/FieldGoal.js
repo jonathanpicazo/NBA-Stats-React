@@ -40,7 +40,7 @@ printBestFieldGoalers = () => {
 
   render() {
     return(
-      <div>
+      <div className = 'fg'>
         <h2>Player Rankings, Top 10</h2>
         <b>FG% in a Game (per 10+ attempts)</b>
         <div class = "container">

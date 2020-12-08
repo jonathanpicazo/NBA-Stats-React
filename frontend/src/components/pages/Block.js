@@ -37,7 +37,7 @@ printBestBlockers = () => {
 
   render() {
     return(
-      <div>
+      <div className = 'block'>
         <b>Blocks in a Game</b>
         <div class = "container">
           <ol>

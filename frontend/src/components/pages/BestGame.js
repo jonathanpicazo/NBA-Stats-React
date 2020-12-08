@@ -37,7 +37,7 @@ export default class BestGame extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className = 'bestgame'>
         <h2>Player Rankings, Top 10</h2>
         <div class = "container">
         <div>
