@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown';
+import logo from './nbalogo.png'
 import Dropdown2 from './Dropdown2'
 
 function Navbar() {
@@ -48,8 +49,7 @@ function Navbar() {
     <>
       <nav className='navbar'>
         <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-          NBA Stats
-          {/* <i class='fab fa-firstdraft' /> */}
+          <img alt="logo" className="photo" src={logo} />
         </Link>
         <div className='menu-icon' onClick={handleClick}>
           <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
