@@ -63,13 +63,12 @@ export default class Hype extends React.Component {
           {
             x: this.state.xaxis,
             y: this.state.yaxis,
-            type: 'scatter',
-            mode: 'lines+markers',
-            marker: {color: 'red'},
+            type: 'bar',
+            marker: {color: 'blue'},
           },
-          {type: 'bar', x: this.state.xaxis, y: this.state.yaxis},
+          {x: this.state.xaxis, y: this.state.yaxis},
         ]}
-        layout={ {width: 500, height: 500, title: 'Team Rankings'} }
+        layout={ {paper_bgcolor: 'grey' ,width: 500, height: 500, title: 'Team Rankings', plot_bgcolor: 'grey'} }
       />
           </div>
         </div>
