@@ -1,12 +1,15 @@
 import React from 'react';
 import './Pages.css';
 import axios from 'axios';
+import Plot from 'react-plotly.js';
 
 
 
 export default class FieldGoal extends React.Component {
   state = {
-    bestFieldGoalers:{}
+    bestFieldGoalers:{},
+    xaxis: [],
+    yaxis: []
   };
 
  
@@ -30,8 +33,11 @@ printBestFieldGoalers = () => {
   var array = []
   for (let k in this.state.bestFieldGoalers) {
     array.push(<div><li>{this.state.bestFieldGoalers[k]}</li></div>)
-    //console.log(k + ' is ' + this.state.bestPlayers[k])
-  }
+    this.state.xaxis.push(this.state.bestFieldGoalers[k][0])
+    console.log(this.state.bestFieldGoalers[k][0])
+    this.state.yaxis.push(this.state.bestFieldGoalers[k][1])
+    console.log(this.state.bestFieldGoalers[k][1])
+    }
   return array;
 }
 
@@ -41,12 +47,27 @@ printBestFieldGoalers = () => {
   render() {
     return(
       <div className = 'fg'>
-        <h2>Player Rankings, Top 10</h2>
-        <b>FG% in a Game (per 10+ attempts)</b>
         <div class = "container">
-        <ol>
+        <div>
+        <Plot
+        data={[
+          {
+            x: this.state.xaxis,
+            y: this.state.yaxis,
+            type: 'bar',
+            marker: {color: 'blue'},
+          },
+          {x: this.state.xaxis, y: this.state.yaxis},
+        ]}
+        layout={ {paper_bgcolor: 'grey' ,width: 850, height: 850, title: 'Top 10 3pt Shooters', plot_bgcolor: 'grey'} }
+      />
+          </div>
+          <div>
+          <h2>FG% in a Game (per 10+ attempts)</h2>
+          <ul className = "title">
           {this.printBestFieldGoalers()}
-          </ol>
+          </ul>
+          </div>
         </div>
       </div>
     );

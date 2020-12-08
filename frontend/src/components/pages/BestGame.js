@@ -1,12 +1,15 @@
 import React from 'react';
 import './Pages.css';
 import axios from 'axios';
+import Plot from 'react-plotly.js';
 
 
 
 export default class BestGame extends React.Component {
   state = {
-    bestPlayers: {}
+    bestPlayers: {},
+    xaxis: [],
+    yaxis: []
   };
 
  
@@ -29,7 +32,10 @@ export default class BestGame extends React.Component {
     var array = []
     for (let k in this.state.bestPlayers) {
       array.push(<div><li>{this.state.bestPlayers[k]}</li></div>)
-      //console.log(k + ' is ' + this.state.bestPlayers[k])
+      this.state.xaxis.push(this.state.bestPlayers[k][0])
+      console.log(this.state.bestPlayers[k][0])
+      this.state.yaxis.push(this.state.bestPlayers[k][1])
+      console.log(this.state.bestPlayers[k][1])
     }
     return array;
  }
@@ -38,16 +44,29 @@ export default class BestGame extends React.Component {
   render() {
     return(
       <div className = 'bestgame'>
-        <h2>Player Rankings, Top 10</h2>
         <div class = "container">
         <div>
-        <b>Best Individual Performance in a Game</b>
-          <ol>
+        <Plot
+        data={[
+          {
+            x: this.state.xaxis,
+            y: this.state.yaxis,
+            type: 'bar',
+            marker: {color: 'blue'},
+          },
+          {x: this.state.xaxis, y: this.state.yaxis},
+        ]}
+        layout={ {paper_bgcolor: 'grey' ,width: 850, height: 850, title: 'Top 10 best games', plot_bgcolor: 'grey'} }
+      />
+          </div>
+          <div>
+          <h2>Best Individual Performance in a Game</h2>
+          <ul className = "title">
             {this.printBestPlayers()}
-          </ol>
+          </ul>
+          </div>
           </div>
         </div>
-      </div>
     );
   }
 };

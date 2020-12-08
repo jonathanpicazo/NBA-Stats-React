@@ -5,3 +5,8 @@
 .container > div {
   flex: 1;
 }
+
+.title {
+  justify-content: center;
+  list-style-type: decimal;
+}

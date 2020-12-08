@@ -1,12 +1,14 @@
 import React from 'react';
 import './Pages.css';
 import axios from 'axios';
-
+import Plot from 'react-plotly.js';
 
 
 export default class Teams extends React.Component {
   state = {
-    bestHomers: {}
+    bestHomers: {},
+    xaxis:[],
+    yaxis:[]
   };
 
  
@@ -28,7 +30,10 @@ export default class Teams extends React.Component {
     var array = []
     for (let k in this.state.bestHomers) {
       array.push(<div><li>{this.state.bestHomers[k]}</li></div>)
-      //console.log(k + ' is ' + this.state.bestHomers[k])
+      this.state.xaxis.push(this.state.bestHomers[k][0])
+      console.log(this.state.bestHomers[k][0])
+      this.state.yaxis.push(this.state.bestHomers[k][1])
+      console.log(this.state.bestHomers[k][1])
     }
     return array;
  }
@@ -41,16 +46,31 @@ export default class Teams extends React.Component {
   render() {
     return(
       <div className = 'homewin'>
-        <h2>Teams Rankings, Top 10</h2>
         <div class = "container">
         <div>
-        <b>Best Home Teams (based on PPG in a single game)</b>
-          <ol>
+        <Plot
+        data={[
+          {
+            x: this.state.xaxis,
+            y: this.state.yaxis,
+            type: 'bar',
+            marker: {color: 'blue'},
+          },
+          {x: this.state.xaxis, y: this.state.yaxis},
+        ]}
+        layout={ {paper_bgcolor: 'grey' ,width: 850, height: 850, title: 'Top 10 Scoring Home Teams', plot_bgcolor: 'grey'} }
+      />
+          </div>
+          <div>
+          <h2>Best Home Teams (based on PPG in a single game)</h2>
+          <ul className = "title">
             {this.printbestHomers()}
-          </ol>
+          </ul>
           </div>
         </div>
       </div>
+          
+      
     );
   }
 };

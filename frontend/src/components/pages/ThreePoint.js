@@ -1,12 +1,15 @@
 import React from 'react';
 import './Pages.css';
 import axios from 'axios';
+import Plot from 'react-plotly.js';
 
 
 
 export default class ThreePoint extends React.Component {
   state = {
-    bestShooters:{}
+    bestShooters:{},
+    xaxis: [],
+    yaxis: []
   };
 
  
@@ -29,8 +32,11 @@ export default class ThreePoint extends React.Component {
   var array = []
   for (let k in this.state.bestShooters) {
     array.push(<div><li>{this.state.bestShooters[k]}</li></div>)
-    //console.log(k + ' is ' + this.state.bestPlayers[k])
-  }
+    this.state.xaxis.push(this.state.bestShooters[k][0])
+    console.log(this.state.bestShooters[k][0])
+    this.state.yaxis.push(this.state.bestShooters[k][1])
+    console.log(this.state.bestShooters[k][1])
+    }
   return array;
 }
 
@@ -38,12 +44,29 @@ export default class ThreePoint extends React.Component {
   render() {
     return(
       <div className = 'threept'>
-        <b>3PT% in a Game (per 10+ attempts)</b>
+        
         <div class = "container">
-          <ol>
+          <div>
+          <Plot
+        data={[
+          {
+            x: this.state.xaxis,
+            y: this.state.yaxis,
+            type: 'bar',
+            marker: {color: 'blue'},
+          },
+          {x: this.state.xaxis, y: this.state.yaxis},
+        ]}
+        layout={ {paper_bgcolor: 'grey' ,width: 850, height: 850, title: 'Top 10 3pt Shooters', plot_bgcolor: 'grey'} }
+      />
+          </div>
+          <div>
+          <h2>3PT% in a Game (per 10+ attempts)</h2>
+          <ul className = "title">
             {this.printBestShooters()}
-          </ol>
-            </div>
+          </ul>
+          </div>
+          </div>
       </div>
     );
   }

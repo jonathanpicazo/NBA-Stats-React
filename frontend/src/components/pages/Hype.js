@@ -49,14 +49,7 @@ export default class Hype extends React.Component {
   render() {
     return(
     <div className = 'hype'>
-      <div>
-        <h2>Teams Rankings, Top 10</h2>
-        <b>Hype Factor</b>
         <div class = "container">
-          <ol>
-            {this.printbestHypers()}
-          </ol>
-          </div>
           <div>
           <Plot
         data={[
@@ -68,8 +61,15 @@ export default class Hype extends React.Component {
           },
           {x: this.state.xaxis, y: this.state.yaxis},
         ]}
-        layout={ {paper_bgcolor: 'grey' ,width: 500, height: 500, title: 'Team Rankings', plot_bgcolor: 'grey'} }
+        layout={ {paper_bgcolor: 'grey' ,width: 850, height: 850, title: 'Top 10 Most Hype Teams', plot_bgcolor: 'grey'} }
       />
+          
+          </div>
+          <div>
+          <h2>Hype Factor</h2>
+            <ul class = "title">
+              {this.printbestHypers()}
+            </ul>
           </div>
         </div>
       </div>

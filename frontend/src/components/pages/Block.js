@@ -1,12 +1,14 @@
 import React from 'react';
 import './Pages.css';
 import axios from 'axios';
-
+import Plot from 'react-plotly.js';
 
 
 export default class Block extends React.Component {
   state = {
-    bestBlockers:{}
+    bestBlockers:{},
+    xaxis: [],
+    yaxis: []
   };
 
  
@@ -29,8 +31,11 @@ printBestBlockers = () => {
   var array = []
   for (let k in this.state.bestBlockers) {
     array.push(<div><li>{this.state.bestBlockers[k]}</li></div>)
-    //console.log(k + ' is ' + this.state.bestPlayers[k])
-  }
+    this.state.xaxis.push(this.state.bestBlockers[k][0])
+    console.log(this.state.bestBlockers[k][0])
+    this.state.yaxis.push(this.state.bestBlockers[k][1])
+    console.log(this.state.bestBlockers[k][1])
+    }
   return array;
 }
 
@@ -38,11 +43,28 @@ printBestBlockers = () => {
   render() {
     return(
       <div className = 'block'>
-        <b>Blocks in a Game</b>
         <div class = "container">
-          <ol>
+        <div>
+        <Plot
+        data={[
+          {
+            x: this.state.xaxis,
+            y: this.state.yaxis,
+            type: 'bar',
+            marker: {color: 'blue'},
+          },
+          {x: this.state.xaxis, y: this.state.yaxis},
+        ]}
+        layout={ {paper_bgcolor: 'grey' ,width: 850, height: 850, title: 'Top 10 best games', plot_bgcolor: 'grey'} }
+      />
+          
+        </div>
+        <div>
+          <h2>Blocks in a Game</h2>
+          <ul className = "title">
             {this.printBestBlockers()}
-          </ol>
+          </ul>
+          </div>
         </div>
         </div>
     );
