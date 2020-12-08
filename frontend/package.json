@@ -8,14 +8,17 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.21.0",
     "plotly": "^1.0.6",
+    "plotly.js": "^1.58.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-plotly.js": "^2.5.1",
+    "react-plotlyjs": "^0.4.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --max_old_space_size=4096 start",
+    "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
