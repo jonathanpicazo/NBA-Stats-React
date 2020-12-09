@@ -31,6 +31,7 @@
   background-image: url('./images/img-1.jpg');
   background-position: center;
   background-size: cover;
+  height: 1080px;
   background-repeat: no-repeat;
   color: #fff;
   font-size: 100px;
