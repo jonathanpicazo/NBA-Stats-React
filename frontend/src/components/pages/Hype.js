@@ -8,9 +8,9 @@ import Plot from 'react-plotly.js';
 
 export default class Hype extends React.Component {
   state = {
-    bestHypers:{},
+    bestHypers:{}, 
     xaxis:[],
-    yaxis:[]
+    yaxis:[] 
   };
 
  
@@ -57,7 +57,7 @@ export default class Hype extends React.Component {
             x: this.state.xaxis,
             y: this.state.yaxis,
             type: 'bar',
-            marker: {color: 'blue'},
+            marker: {color: 'light-blue'},
           },
           {x: this.state.xaxis, y: this.state.yaxis},
         ]}

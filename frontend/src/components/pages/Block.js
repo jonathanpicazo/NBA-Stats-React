@@ -51,11 +51,11 @@ printBestBlockers = () => {
             x: this.state.xaxis,
             y: this.state.yaxis,
             type: 'bar',
-            marker: {color: 'blue'},
+            marker: {color: 'light-blue'},
           },
           {x: this.state.xaxis, y: this.state.yaxis},
         ]}
-        layout={ {paper_bgcolor: 'grey' ,width: 850, height: 850, title: 'Top 10 best games', plot_bgcolor: 'grey'} }
+        layout={ {paper_bgcolor: 'grey' ,width: 850, height: 850, title: 'Top 10 Blocks', plot_bgcolor: 'grey'} }
       />
           
         </div>

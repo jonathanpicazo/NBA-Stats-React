@@ -53,7 +53,7 @@ export default class ThreePoint extends React.Component {
             x: this.state.xaxis,
             y: this.state.yaxis,
             type: 'bar',
-            marker: {color: 'blue'},
+            marker: {color: 'light-blue'},
           },
           {x: this.state.xaxis, y: this.state.yaxis},
         ]}
