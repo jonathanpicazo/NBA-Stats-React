@@ -89,7 +89,7 @@ function Navbar() {
               className='nav-links'
               onClick={closeMobileMenu}
             >
-              Contact Us
+              About
             </Link>
           </li>
         </ul>

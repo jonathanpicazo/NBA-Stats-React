@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap');
+
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'PT Sans', sans-serif;
+  /* font-family: 'PT Sans', sans-serif; */
+  font-family: 'Titillium Web', sans-serif;
 }
 
 .home,
@@ -21,6 +25,7 @@
 .bestgame,
 .threept,
 .fg,
+.search,
 .block{
   height: 150vh;
   background-color: #404040;
@@ -44,4 +49,43 @@
   background-repeat: no-repeat;
   color: #fff;
   font-size: 100px;
+}
+
+form {
+  text-align: center;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #00000;
+  opacity: 1; /* Firefox */
+}
+input[type=text] {
+  background-color: #404040;
+  color: white;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #00000;
+  opacity: 1; /* Firefox */
+}
+
+td {
+  border: 1px solid #000;
+}
+
+tr td:last-child {
+  width: 1%;
+  white-space: nowrap;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid white;
+}
+
+h1 {
+  text-align:center;
 }

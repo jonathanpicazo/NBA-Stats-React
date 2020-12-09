@@ -1,0 +1,10 @@
+Nuggets,168.0
+Hawks,161.0
+Rockets,158.0
+Washington,158.0
+Nets,157.0
+Spurs,154.0
+Suns,152.0
+Bucks,151.0
+Thunder,151.0
+Knicks,151.0

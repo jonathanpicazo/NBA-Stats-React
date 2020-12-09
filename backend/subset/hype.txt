@@ -1,0 +1,10 @@
+Raptors,15622.2
+Bucks,15225
+Lakers,14923.98
+76ers,13454.05
+Clippers,13380.12
+Heat,13347.60
+Nuggets,13292.90
+Celtics,12943.68
+Mavericks,11846.4
+Pacers,11667.42

@@ -19,7 +19,7 @@ export default class Hype extends React.Component {
   componentDidMount() {
     console.log('Component mounted')
       //www
-      axios.get(`http://localhost:5000/teamHypeatHome`)
+      axios.get(`http://localhost:5000/UpdateTeamHype`)
       .then(res => {
         //const bestHomers = res.data;
         //console.log(res.data)
@@ -32,9 +32,12 @@ export default class Hype extends React.Component {
 
  printbestHypers = () => {
   var array = []
+  let name = ''
   for (let k in this.state.bestHypers) {
     array.push(<div><li>{this.state.bestHypers[k]}</li></div>)
-    this.state.xaxis.push(this.state.bestHypers[k][0])
+    name = this.state.bestHypers[k][0]
+    name = name.substring(0, name.length - 2);
+    this.state.xaxis.push(name)
     console.log(this.state.bestHypers[k][0])
     this.state.yaxis.push(this.state.bestHypers[k][1])
     console.log(this.state.bestHypers[k][1])

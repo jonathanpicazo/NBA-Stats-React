@@ -17,7 +17,7 @@ export default class FieldGoal extends React.Component {
 
   componentDidMount() {
     console.log('Component mounted')
-      axios.get(`http://localhost:5000/bestFieldGoalPercentage`)
+      axios.get(`http://localhost:5000/Updatefg`)
       .then(res => {
         //const bestPlayers = res.data;
         console.log(res.data)
@@ -31,9 +31,12 @@ export default class FieldGoal extends React.Component {
 
 printBestFieldGoalers = () => {
   var array = []
+  let name = ''
   for (let k in this.state.bestFieldGoalers) {
     array.push(<div><li>{this.state.bestFieldGoalers[k]}</li></div>)
-    this.state.xaxis.push(this.state.bestFieldGoalers[k][0])
+    name = this.state.bestFieldGoalers[k][0]
+    name = name.substring(0, name.length - 2);
+    this.state.xaxis.push(name)
     console.log(this.state.bestFieldGoalers[k][0])
     this.state.yaxis.push(this.state.bestFieldGoalers[k][1])
     console.log(this.state.bestFieldGoalers[k][1])

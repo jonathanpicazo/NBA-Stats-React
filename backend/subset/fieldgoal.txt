@@ -1,0 +1,10 @@
+Amar'e Stoudemire,0.741
+Paul George,0.731
+Steve Nash,0.714
+Andre Miller,0.710
+Anthony Davis,0.706
+Vince Carter,0.704
+Al Jefferson,0.704
+DeMarcus Cousins,0.700
+Carmelo Anthony,0.692
+Mo Williams,0.692

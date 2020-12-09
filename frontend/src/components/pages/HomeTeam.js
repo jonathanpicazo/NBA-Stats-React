@@ -16,7 +16,7 @@ export default class Teams extends React.Component {
 
   componentDidMount() {
     console.log('Component mounted')
-    axios.get(`http://localhost:5000/bestHomeTeam`)
+    axios.get(`http://localhost:5000/UpdateTeamPerformance`)
       .then(res => {
         //const bestHomers = res.data;
         console.log(res.data)
@@ -27,10 +27,13 @@ export default class Teams extends React.Component {
   }
 
   printbestHomers = () => {
+    let name = ''
     var array = []
     for (let k in this.state.bestHomers) {
       array.push(<div><li>{this.state.bestHomers[k]}</li></div>)
-      this.state.xaxis.push(this.state.bestHomers[k][0])
+      name = this.state.bestHomers[k][0]
+      name = name.substring(0, name.length - 2);
+      this.state.xaxis.push(name)
       console.log(this.state.bestHomers[k][0])
       this.state.yaxis.push(this.state.bestHomers[k][1])
       console.log(this.state.bestHomers[k][1])

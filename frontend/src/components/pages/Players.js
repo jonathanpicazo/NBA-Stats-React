@@ -1,132 +1,89 @@
 import React from 'react';
-import './Pages.css';
+import '../../App.css';
 import axios from 'axios';
-
-
 
 export default class Players extends React.Component {
   state = {
-    bestPlayers: {},
-    bestShooters:{},
-    bestFieldGoalers:{},
-    bestBlockers:{}
+    playerName: '',
+    season:'',
+    fg_pct:'',
+    fg3_pct:'',
+    blk:'',
+    pp:'',
   };
 
- 
+  handleChange = (evt) => {
+    evt.preventDefault();
+    this.setState({[evt.target.name]: evt.target.value});
+  }
+  insertfunc = event => {
+    event.preventDefault();
+    const player = {
+      playerName: this.state.playerName,
+      season: this.state.season,
+      fg_pct: this.state.fg_pct,
+      fg3_pct: this.state.fg3_pct,
+      blk: this.state.blk,
+      pp: this.state.pp
+    }
+    console.log(player);
 
-
-  componentDidMount() {
-    console.log('Component mounted')
-    axios.get(`http://localhost:5000/playersBestGame`)
+    axios.post(`http://localhost:5000/UpdateBlocks`, { player })
       .then(res => {
-        //const bestPlayers = res.data;
-        console.log(res.data)
-        this.setState({
-          bestPlayers: res.data
-       })
-      })
-      //www
-      axios.get(`http://localhost:5000/topTen3Pointers`)
-      .then(res => {
-        //const bestPlayers = res.data;
-        console.log(res.data)
-        this.setState({
-          bestShooters: res.data
-       })
-      })
-      axios.get(`http://localhost:5000/bestFieldGoalPercentage`)
-      .then(res => {
-        //const bestPlayers = res.data;
-        console.log(res.data)
-        this.setState({
-          bestFieldGoalers: res.data
-       })
-      })
-      axios.get(`http://localhost:5000/topTenBlocks`)
-      .then(res => {
-        //const bestPlayers = res.data;
-        console.log(res.data)
+        console.log(res);
+        console.log(res.data);
         this.setState({
           bestBlockers: res.data
        })
       })
-    // //
-    // axios.get(`https://localhost:5000/bestFieldGoalPercentage`)
-    // .then(res => {
-    //   const bestFieldGoalers = res.data;
-    //   this.setState({ bestFieldGoalers });
-    // })
+      axios.post(`http://localhost:5000/UpdatePlayerPerformance`, { player })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+        this.setState({
+          bestPlayers: res.data
+       })
+      })
 
-  }
+      axios.post(`http://localhost:5000/Updatethreeptgoal`, { player })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+        this.setState({
+          bestShooters: res.data
+       })
+      })
 
-  printBestPlayers = () => {
-    var array = []
-    for (let k in this.state.bestPlayers) {
-      array.push(<div><li>{this.state.bestPlayers[k]}</li></div>)
-      //console.log(k + ' is ' + this.state.bestPlayers[k])
-    }
-    return array;
- }
-
- printBestShooters = () => {
-  var array = []
-  for (let k in this.state.bestShooters) {
-    array.push(<div><li>{this.state.bestShooters[k]}</li></div>)
-    //console.log(k + ' is ' + this.state.bestPlayers[k])
-  }
-  return array;
-}
-
-printBestFieldGoalers = () => {
-  var array = []
-  for (let k in this.state.bestFieldGoalers) {
-    array.push(<div><li>{this.state.bestFieldGoalers[k]}</li></div>)
-    //console.log(k + ' is ' + this.state.bestPlayers[k])
-  }
-  return array;
-}
-
-printBestBlockers = () => {
-  var array = []
-  for (let k in this.state.bestBlockers) {
-    array.push(<div><li>{this.state.bestBlockers[k]}</li></div>)
-    //console.log(k + ' is ' + this.state.bestPlayers[k])
-  }
-  return array;
-}
+      axios.post(`http://localhost:5000/Updatefg`, { player })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+        this.setState({
+          bestFieldGoalers: res.data
+       })
+      })
 
 
-  render() {
+};
+
+  render(){
     return(
-      <div className = 'players'>
-        <h2>Player Rankings, Top 10</h2>
-        <div class = "container">
-        <div>
-        <b>Best Individual Performance in a Game</b>
-          <ol>
-            {this.printBestPlayers()}
-          </ol>
+      <div>
+        <div className = 'hype'>
+      <form onSubmit={this.insertfunc}>
+            <label>
+            <b>Insert player details: </b>
+              <div> <input type="text" placeholder = "Enter player name" name = "playerName" onChange = {this.handleChange}/> </div>
+              <div> <input type="text" placeholder = "Enter season played" name = "season" onChange = {this.handleChange}/> </div>
+              <div> <input type="text" placeholder = "Enter FG%" name = "fg_pct" onChange = {this.handleChange}/> </div>
+              <div> <input type="text" placeholder = "Enter 3PT%" name = "fg3_pct" onChange = {this.handleChange}/> </div>
+              <div> <input type="text" placeholder = "Enter Blocks" name = "blk" onChange = {this.handleChange}/> </div>
+              <div> <input type="text" placeholder = "Enter Player Performance" name = "pp" onChange = {this.handleChange}/> </div>
+              <button type = "submit"> Submit </button>
+            </label>
+          </form>
           </div>
-        <div>
-        <b>3PT% in a Game (per 10+ attempts)</b>
-          <ol>
-            {this.printBestShooters()}
-          </ol>
-            </div>
-        <div>
-        <b>FG% in a Game (per 10+ attempts)</b>
-        <ol>
-          {this.printBestFieldGoalers()}
-          </ol>
-        </div>
-        <div>
-          <b>Blocks in a Game</b>
-          <ol>
-            {this.printBestBlockers()}
-          </ol>
-        </div>
-        </div>
       </div>
-    );
+    )
   }
 };

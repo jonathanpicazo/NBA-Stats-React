@@ -1,0 +1,10 @@
+Ty Lawson,0.909
+Jodie Meeks,0.818
+Yogi Ferrell,0.818
+Jamal Murray,0.818
+Rodrigue Beaubois,0.818
+Mario Chalmers,0.769
+Zach LaVine:,0.765
+Omri Casspi,0.750
+Carmelo Anthony,0.750
+Dorell Wright,0.750

@@ -17,7 +17,7 @@ export default class BestGame extends React.Component {
 
   componentDidMount() {
     console.log('Component mounted')
-    axios.get(`http://localhost:5000/playersBestGame`)
+    axios.get(`http://localhost:5000/UpdatePlayerPerformance`)
       .then(res => {
         //const bestPlayers = res.data;
         console.log(res.data)
@@ -30,9 +30,12 @@ export default class BestGame extends React.Component {
 
   printBestPlayers = () => {
     var array = []
+    let name = ''
     for (let k in this.state.bestPlayers) {
       array.push(<div><li>{this.state.bestPlayers[k]}</li></div>)
-      this.state.xaxis.push(this.state.bestPlayers[k][0])
+      name = this.state.bestPlayers[k][0]
+      name = name.substring(0, name.length - 2);
+      this.state.xaxis.push(name)
       console.log(this.state.bestPlayers[k][0])
       this.state.yaxis.push(this.state.bestPlayers[k][1])
       console.log(this.state.bestPlayers[k][1])

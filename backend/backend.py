@@ -8,84 +8,121 @@ import math
 app = Flask(__name__)
 CORS(app)
 
+
+def findTeam(argteam):
+     with open('dataset/teams.csv') as csvfile:
+        readCSV = csv.reader(csvfile, delimiter=',')
+        for row in readCSV:
+            if row[1] == argteam:
+                return row[5]
+
+def formatStat(stat):
+    perc = float(stat)
+    perc = "{:.3f}".format(perc)
+    ret = str(perc)
+    return ret
+
+@app.route('/searchTeams', methods = ['POST'])
+def searchTeams():
+    m = request.get_json()
+    x = json.dumps(m)
+    y = json.loads(x)
+    myteam = str((y["team"]["teamName"]))
+    myseason = str((y["team"]["season"]))
+    teamID = ''
+    with open('dataset/teams.csv') as csvfile:
+            readCSV = csv.reader(csvfile, delimiter=',')
+            for row in readCSV:
+                if row[5] == myteam:
+                    teamID = row[1]
+    myList = [[]]
+    with open('dataset/games.csv') as csvfile:
+        readCSV = csv.reader(csvfile, delimiter=',')
+        for row in readCSV:
+            if row[5] == myseason:
+                if row[3] == teamID:
+                    # strz = str(row[7] + ',' + row[8] + ',' + row[9] + ',' + row[10] + ',' + row[11] + ',' + row[12])
+                    # myList.append(strz)
+                    oppTeam = findTeam(row[4])
+                    print(oppTeam)
+                    pushArray = []
+                    pushArray.append(oppTeam)
+                    pushArray.append(row[7])
+                    #-
+                    pushArray.append(formatStat(row[8]))
+                    pushArray.append(formatStat(row[9]))
+                    pushArray.append(formatStat(row[10]))
+                    #-
+                    pushArray.append(row[11])
+                    pushArray.append(row[12])
+                    pushArray.append(row[13])
+                    myList.append(pushArray)
+    print(type(myList))
+    return jsonify(myList)
+
+# def searchTeams():
+#     myList = list()
+#     season = '2020'
+#     with open('dataset/games.csv') as csvfile:
+#         readCSV = csv.reader(csvfile, delimiter=',')
+#         for row in readCSV:
+#             a = row[0].split('-')
+#             if a[0] == season:
+#                 if row[3] == '1610612747':
+#                     myList.append(row)
+#     print(row)
+
+
+
 # Incremental Anal
 @app.route('/UpdateBlocks', methods = ['GET', 'POST'])
 def UpdateBlocks():
+    playerblocks = {}
+    myDict = {}
+    with open("subset/block.txt") as fd:
+        for line in fd:
+            a = line.split(',')
+            name = a[0] + ': '
+            stat = a[1].strip()
+            myDict[name] = stat
+    playerblocks = myDict
+    #receive form from front end(playername,metric)
     if request.method == 'POST':
-        playerblocks = {
-        "JaVale McGee: ": "12.0",
-        "Hassan Whiteside: ": "12.0",
-        "Roy Hibbert: ": "11.0",
-        "Joakim Noah: ": "11.0",
-        "Larry Sanders: ": "10.0",
-        "Anthony Davis: ": "10.0",
-        "Serge Ibaka: ": "10.0",
-        "Andrew Bynum: ": "10.0",
-        "Dikembe Mutombo: ": "10.0",
-        "Calvin Booth: ": "10.0"
-        }
-        print('here')
-        #receive form from front end(playername,metric)
         m = request.get_json()
         x = json.dumps(m)
         y = json.loads(x)
         playername = str((y["player"]["playerName"])) + ': '
         metric = str((y["player"]["blk"]))
-        print(playername)
-        print(metric)
         playerblocks.update({playername: metric})
-        sort_Dict = sorted(playerblocks.items(), key=lambda x: x[1])
-        playerblocks.clear()
-        for i in range(1,11):
-            playerblocks[i] = sort_Dict[-i]
-        print(playerblocks)
-        return jsonify(playerblocks)
+    sort_Dict = sorted(playerblocks.items(), key=lambda x: x[1])
+    playerblocks.clear()
+    for i in range(1,11):
+    	playerblocks[i] = sort_Dict[-i]
+    #print(playerblocks)
+    printArray = []
+    for i in playerblocks:
+        temp = playerblocks[i][0]
+        numb = playerblocks[i][1]
+        temp = temp[:-2] + ','+ numb
+        printArray.append(temp)
 
-    elif request.method == 'GET':
-        playerblocks = {
-        "JaVale McGee: ": "12.0",
-        "Hassan Whiteside: ": "12.0",
-        "Roy Hibbert: ": "11.0",
-        "Joakim Noah: ": "11.0",
-        "Larry Sanders: ": "10.0",
-        "Anthony Davis: ": "10.0",
-        "Serge Ibaka: ": "10.0",
-        "Andrew Bynum: ": "10.0",
-        "Dikembe Mutombo: ": "10.0",
-        "Calvin Booth: ": "10.0"
-        }
-        print('here')
-        #receive form from front end(playername,metric)
-        # m = request.get_json()
-        # x = json.dumps(m)
-        # y = json.loads(x)
-        # playername = str((y["player"]["playerName"]))
-        # metric = str((y["player"]["blk"]))
-        # metric = float(metric)
-        # print(playername)
-        # print(metric)
-        # playerblocks.update({playername: metric})
-        sort_Dict = sorted(playerblocks.items(), key=lambda x: x[1])
-        playerblocks.clear()
-        for i in range(1,11):
-            playerblocks[i] = sort_Dict[-i]
-        print(playerblocks)
-        return jsonify(playerblocks)
+    print(printArray)
+    with open('subset/block.txt', 'w') as f:
+        for item in printArray:
+            f.write("%s\n" % item)
+    return jsonify(playerblocks)
 
 @app.route('/Updatethreeptgoal', methods = ['GET', 'POST'])
 def Updatethreeptgoal():
-    threeptgoal = {
-    "Ty Lawson: ": "0.909",
-    "Jodie Meeks: ": "0.818",
-    "Yogi Ferrell: ": "0.818",
-    "Jamal Murray: ": "0.818",
-    "Rodrigue Beaubois: ": "0.818",
-    "Mario Chalmers: ": "0.769",
-    "Zach LaVine: ": "0.765",
-    "Omri Casspi: ": "0.750",
-    "Carmelo Anthony: ": "0.750",
-    "Dorell Wright: ": "0.750"
-    }
+    threeptgoal = {}
+    myDict = {}
+    with open("subset/shooters.txt") as fd:
+        for line in fd:
+            a = line.split(',')
+            name = a[0] + ': '
+            stat = a[1].strip()
+            myDict[name] = stat
+    threeptgoal = myDict
     #receive form from front end(playername,metric)
     if request.method == 'POST':
         m = request.get_json()
@@ -99,22 +136,30 @@ def Updatethreeptgoal():
     for i in range(1,11):
     	threeptgoal[i] = sort_Dict[-i]
     #print(playerblocks)
+    printArray = []
+    for i in threeptgoal:
+        temp = threeptgoal[i][0]
+        numb = threeptgoal[i][1]
+        temp = temp[:-2] + ','+ numb
+        printArray.append(temp)
+
+    print(printArray)
+    with open('subset/shooters.txt', 'w') as f:
+        for item in printArray:
+            f.write("%s\n" % item)
     return jsonify(threeptgoal)
 
 @app.route('/Updatefg', methods = ['GET', 'POST'])
 def Updatefg():
-    fieldgoal = {
-    "Amar'e Stoudemire: ": "0.741",
-    "Paul George: ": "0.731",
-    "Steve Nash: ": "0.714",
-    "Andre Miller: ": "0.710",
-    "Anthony Davis: ": "0.706",
-    "Al Jefferson: ": "0.704",
-    "Vince Carter: ": "0.704",
-    "DeMarcus Cousins: ": "0.700",
-    "Mo Williams: ": "0.692",
-    "Carmelo Anthony: ": "0.692"
-    }
+    fieldgoal = {}
+    myDict = {}
+    with open("subset/fieldgoal.txt") as fd:
+        for line in fd:
+            a = line.split(',')
+            name = a[0] + ': '
+            stat = a[1].strip()
+            myDict[name] = stat
+    fieldgoal = myDict
     #receive form from front end(playername,metric)
     if request.method == 'POST':
         m = request.get_json()
@@ -129,22 +174,31 @@ def Updatefg():
     for i in range(1,11):
     	fieldgoal[i] = sort_Dict[-i]
     # print(fieldgoal)
+    printArray = []
+    for i in fieldgoal:
+        temp = fieldgoal[i][0]
+        numb = fieldgoal[i][1]
+        temp = temp[:-2] + ','+ numb
+        printArray.append(temp)
+
+    print(printArray)
+    with open('subset/fieldgoal.txt', 'w') as f:
+        for item in printArray:
+            f.write("%s\n" % item)
     return jsonify(fieldgoal)
 
 @app.route('/UpdatePlayerPerformance', methods = ['GET', 'POST'])
 def UpdatePlayerPerformance():
-    playerperformance = {
-    "Klay Thompson: ": "560.07",
-    "Shaquille O'Neal: ": "498.62",
-    "Chandler Parsons: ": "441.49",
-    "Jonas Valanciunas: ": "425.36",
-    "Ty Lawson: ": "416.41",
-    "Seth Curry: ": "415.57",
-    "Tobias Harris: ": "395.53",
-    "Chris Paul: ": "392.97",
-    "Hassan Whiteside: ": "392.35",
-    "Marc Gasol: ": "390.78"
-    }
+    myDict = {}
+    playerperformance = {}
+    with open("subset/bestgame.txt") as fd:
+        for line in fd:
+            a = line.split(',')
+            name = a[0] + ': '
+            stat = a[1].strip()
+            myDict[name] = stat
+
+    playerperformance = myDict
     #receive form from front end(playername,metric)
     if request.method == 'POST':
         m = request.get_json()
@@ -157,23 +211,32 @@ def UpdatePlayerPerformance():
     playerperformance.clear()
     for i in range(1,11):
     	playerperformance[i] = sort_Dict[-i]
+    printArray = []
+    for i in playerperformance:
+        temp = playerperformance[i][0]
+        numb = playerperformance[i][1]
+        temp = temp[:-2] + ','+ numb
+        printArray.append(temp)
+
+    print(printArray)
+    with open('subset/bestgame.txt', 'w') as f:
+        for item in printArray:
+            f.write("%s\n" % item)
     return jsonify(playerperformance)
 
 @app.route('/UpdateTeamPerformance', methods = ['GET', 'POST'])
 #TEAMS
 def UpdateTeamPerformance():
-    teamperformance = {
-    "Nuggets: ": "168.0",
-    "Hawks: ": "161.0",
-    "Rockets: ": "158.0",
-    "Washington: ": "158.0",
-    "Nets: ": "157.0",
-    "Spurs: ": "154.0",
-    "Suns: ": "152.0",
-    "Bucks: ": "151.0",
-    "Thunder: ": "151.0",
-    "Knicks: ": "151.0",
-    }
+    teamperformance = {}
+    myDict = {}
+    with open("subset/besthome.txt") as fd:
+        for line in fd:
+            a = line.split(',')
+            name = a[0] + ': '
+            stat = a[1].strip()
+            myDict[name] = stat
+
+    teamperformance = myDict
     #receive form from front end(playername,metric)
     # try:
     #     print("Insert team name: ")
@@ -198,18 +261,15 @@ def UpdateTeamPerformance():
 
 @app.route('/UpdateTeamHype', methods = ['GET', 'POST'])
 def UpdateTeamHype():
-    teamhype =	{
-    "Raptors: ": "15622.2",
-    "Bucks: ": "15225",
-    "Lakers: ": "14923.98",
-    "76ers: ": "13454.05",
-    "Clippers: ": "13380.12",
-    "Heat: ": "13347.60",
-    "Nuggets: ": "13292.90",
-    "Celtics: ": "12943.68",
-    "Mavericks: ": "11846.4",
-    "Pacers: ": "11667.42"
-    }
+    teamhype = {}
+    myDict = {}
+    with open("subset/hype.txt") as fd:
+        for line in fd:
+            a = line.split(',')
+            name = a[0] + ': '
+            stat = a[1].strip()
+            myDict[name] = stat
+    teamhype = myDict
     #receive form from front end(playername,metric)
     # try:
     #     print("Insert team name: ")
@@ -225,11 +285,12 @@ def UpdateTeamHype():
         playername = str((y["team"]["teamName"])) + ': '
         metric = str((y["team"]["ninjaHype"]))
         teamhype.update({playername: metric})
-    
     sort_Dict = sorted(teamhype.items(), key=lambda x: x[1])
     teamhype.clear()
     for i in range(1,11):
     	teamhype[i] = sort_Dict[-i]
+    
+    #print(data)
     return jsonify(teamhype)
     #print(teamhype)
 
@@ -408,7 +469,7 @@ def playersBestGame():
 
 
 @app.route('/bestFieldGoalPercentage', methods = ['GET'])
-def bestFieldGoalPercentage(): #runs wiht speeed
+def bestFieldGoalPercentage(): #runs with speed
     myDict = {}
     finalDict = {}
     with open('dataset/games_details.csv') as csvfile: 
