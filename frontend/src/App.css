@@ -9,8 +9,7 @@
   font-family: 'Titillium Web', sans-serif;
 }
 
-.home,
-.contact-us {
+.home {
   display: flex;
   height: 90vh;
   align-items: center;
@@ -26,6 +25,7 @@
 .threept,
 .fg,
 .search,
+.about,
 .block{
   height: 150vh;
   background-color: #404040;
@@ -42,14 +42,6 @@
   font-size: 100px;
 }
 
-.contact-us {
-  background-image: url('./images/img-4.jpg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  color: #fff;
-  font-size: 100px;
-}
 
 form {
   text-align: center;

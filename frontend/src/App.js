@@ -5,7 +5,7 @@ import Home from './components/pages/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Teams from './components/pages/Teams';
 import Players from './components/pages/Players';
-import ContactUs from './components/pages/ContactUs';
+import About from './components/pages/About';
 import Hype from './components/pages/Hype';
 import HomeTeam from './components/pages/HomeTeam';
 import FieldGoal from './components/pages/FieldGoal';
@@ -21,7 +21,7 @@ function App() {
         <Route path='/' exact component={Home} />
         <Route path='/teams' component={Teams} />
         <Route path='/players' component={Players} />
-        <Route path='/contact-us' component={ContactUs} />
+        <Route path='/about' component={About} />
         <Route path='/hype' component={Hype} />
         <Route path='/hometeam' component={HomeTeam} />
         <Route path='/fieldgoal' component={FieldGoal} />

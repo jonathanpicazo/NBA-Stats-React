@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.css';
 import axios from 'axios';
  
-export default class ContactUs extends React.Component {
+export default class About extends React.Component {
 
   state = {
     teamName: '',

@@ -1,10 +1,10 @@
-JaVale McGee,12.0
 Hassan Whiteside,12.0
-Roy Hibbert,11.0
+JaVale McGee,12.0
 Joakim Noah,11.0
-Larry Sanders,10.0
-Anthony Davis,10.0
-Serge Ibaka,10.0
-Andrew Bynum,10.0
-Dikembe Mutombo,10.0
+Roy Hibbert,11.0
 Calvin Booth,10.0
+Dikembe Mutombo,10.0
+Andrew Bynum,10.0
+Serge Ibaka,10.0
+Anthony Davis,10.0
+Larry Sanders,10.0
